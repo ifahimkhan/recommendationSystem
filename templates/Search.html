@@ -1,0 +1,111 @@
+
+<html>
+<head>
+<title>Registration Form</title>
+<style>
+ 
+div{
+  padding: 200px 0;}
+  
+input[type=text], select {
+  width: 50%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: inline-block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 50%;
+  background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+		$(function() {
+ var availableTags = [
+      "ActionScript",
+      "AppleScript",
+      "Asp",
+      "BASIC",
+      "C",
+      "C++",
+      "Clojure",
+      "COBOL",
+      "ColdFusion",
+      "Erlang",
+      "Fortran",
+      "Groovy",
+      "Haskell",
+      "Java",
+      "JavaScript",
+      "Lisp",
+      "Perl",
+      "PHP",
+      "Python",
+      "Ruby",
+      "Scala",
+      "Scheme"
+    ];		
+			$("#autocomplete").autocomplete({
+				source : function(request, response) {
+					$.ajax({
+						type: "GET",
+						url : "http://localhost:5000/autocomp",
+						dataType: "json",
+						cache: false,
+						data : {
+							q : request.term
+						},
+						success : function(data) {
+							//alert(data);
+							//console.log(data);	
+							//availableTags=$.parseJSON(data);
+							response(data);
+						},
+						error: function(jqXHR, textStatus, errorThrown) {
+							console.log(textStatus + " " + errorThrown);
+							alert(textStatus + jqXHR+ errorThrown)
+						}
+					});
+				}
+			});
+		});
+	</script>
+	 </head>
+
+<body>
+<center>
+<div padding="70px">
+<h1>Recommendation Engine</h1>
+
+
+<form action="search" method="get">
+
+<input type="text" id="autocomplete" value="" placeholder="Search Movie" name="q"/>
+
+<input type="submit" value="Submit">
+</div>
+</form>
+</Center>
+</body
+
+</html>
